@@ -8,7 +8,13 @@ from pprint import pprint
 artists_json = 'artists.json'
 image_file = 'test_img.png'
 font_file = 'LeagueMonoVariable.ttf'
-font_size = 10
+g = 1.2
+font_size = 4 * g
+line_adj = 1.15 * g
+m_x = 3.5 * g
+m_y = m_x * line_adj
+
+separator = '·'
 
 
 # reads the artists file and creates a wall of text
@@ -18,10 +24,19 @@ with open(artists_json, 'rb') as json_data:
     artists = json.load(json_data)['artists']
     json_data.close()
   
+
 random.shuffle(artists)
 s = artists[0]
 for a in artists[1:]:
-    s += ', ' + a
+    s += separator + a
+
+#more density!
+random.shuffle(artists)
+s+= separator
+for a in artists:
+    s += separator + a
+
+
 
 # as each char = 1 pixel, what size image do we need?
 area = len(s)
@@ -34,6 +49,7 @@ h = int(h)
 # opens and resizes image
 img = Image.open(image_file)
 img.thumbnail((w,h))
+#img.resize((w,h))
 img_array = numpy.array(img)
 
 
@@ -57,6 +73,9 @@ for axis, data in listFontVariations().items():
 pprint((w,h))
 pprint((len(img_array), len(img_array[0])))
 
+m_h = 297 / h
+m_w = 210 / w
+
 for y in range(len(img_array)):
     for x in range(len(img_array[y])):
 
@@ -77,13 +96,14 @@ for y in range(len(img_array)):
         args[axis] = n_v
         txt.fontVariations(**args)
         c = s[x + y*w]
-        m_h = 297 / h
-        m_w = 210 / w
-        m_x = 2.0
-        m_y = m_x*1.3
+
+        #txt.append(c)
+        if c == ' ':
+            continue
+
         txt.append(c)
-        text(txt, (x * m_w * m_x, y * m_h * m_y))
-        #textBox(txt, (x * m_w * m, y * m_h * m))
+        n_y = h - y # this is because drawbot starts from the bottom
+        text(txt, (x * m_x, n_y * m_y))
         
       
 #textBox(txt, (0, 297))
