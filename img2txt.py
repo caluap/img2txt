@@ -4,17 +4,19 @@ import json, codecs
 import random
 import math
 from pprint import pprint
+import time
+
+start = time.time()
 
 artists_json = 'artists.json'
 image_file = 'test_img.png'
 font_file = 'LeagueMonoVariable.ttf'
-g = 1.2
-font_size = 4 * g
-line_adj = 1.15 * g
-m_x = 3.5 * g
+font_size = 4
+line_adj = 1.11
+m_x = 3.2
 m_y = m_x * line_adj
 
-separator = '·'
+separator = '/'
 
 
 # reads the artists file and creates a wall of text
@@ -31,10 +33,11 @@ for a in artists[1:]:
     s += separator + a
 
 #more density!
-random.shuffle(artists)
-s+= separator
-for a in artists:
-    s += separator + a
+for i in range(2):
+    random.shuffle(artists)
+    s+= separator
+    for a in artists:
+        s += separator + a
 
 
 
@@ -97,16 +100,18 @@ for y in range(len(img_array)):
         txt.fontVariations(**args)
         c = s[x + y*w]
 
-        #txt.append(c)
         if c == ' ':
-            continue
-
-        txt.append(c)
+            txt.append('·')
+        else:
+            txt.append(c.upper())
         n_y = h - y # this is because drawbot starts from the bottom
         text(txt, (x * m_x, n_y * m_y))
         
       
 #textBox(txt, (0, 297))
 uninstallFont(font_file)
+
+
+print(int(time.time()-start))
 
 
