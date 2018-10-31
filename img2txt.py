@@ -9,14 +9,16 @@ import time
 start = time.time()
 
 artists_json = 'artists.json'
-image_file = 'test_img.png'
+image_file = 'test_img.3.png'
 font_file = 'LeagueMonoVariable.ttf'
+font_file = 'SourceCodeVariable-Italic.ttf'
+font_file_2 = 'SourceCodeVariable-Roman.ttf'
 font_size = 4
 line_adj = 1.11
 m_x = 3.2
 m_y = m_x * line_adj
 
-separator = '/'
+separator = '&'
 
 
 # reads the artists file and creates a wall of text
@@ -58,9 +60,12 @@ img_array = numpy.array(img)
 
 size('A4')
 
-installed_font = installFont('fonts/'+font_file)
-f = font(installed_font)
-
+installed_font = []
+installed_font.append(installFont('fonts/'+font_file))
+installed_font.append(installFont('fonts/'+font_file_2))
+f = []
+for ins_f in installed_font:
+    f.append(font(ins_f))
 
 axes_list = {}
 for axis, data in listFontVariations().items():
@@ -71,7 +76,8 @@ for axis, data in listFontVariations().items():
             'default': data['defaultValue']
         }
     axes_list[axis] = a    
-#pprint(axes_list)
+pprint(axes_list)
+
 
 pprint((w,h))
 pprint((len(img_array), len(img_array[0])))
@@ -81,11 +87,9 @@ m_w = 210 / w
 
 for y in range(len(img_array)):
     for x in range(len(img_array[y])):
-
-        txt = FormattedString()
-        txt.font(f)
-        txt.fontSize(font_size)
         
+        txt = FormattedString()
+
         args = {}
         axis = 'wght'
         
@@ -97,8 +101,15 @@ for y in range(len(img_array)):
         n_v = int(v * delta + min_axis)
         
         args[axis] = n_v
+        
+        if v > 0.5:
+            txt.font(f[0])
+        else:
+            txt.font(f[1])
+            
+        txt.fontSize(font_size)
         txt.fontVariations(**args)
-        c = s[x + y*w]
+        c = s[x + y*w]    
 
         if c == ' ':
             txt.append('·')
