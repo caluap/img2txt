@@ -10,15 +10,19 @@ start = time.time()
 
 artists_json = 'artists.json'
 image_file = 'test_img.3.png'
+
 font_file = 'LeagueMonoVariable.ttf'
 font_file = 'SourceCodeVariable-Italic.ttf'
 font_file_2 = 'SourceCodeVariable-Roman.ttf'
-font_size = 4
-line_adj = 1.11
-m_x = 3.2
+font_size = 4.4
+
+m_x = 3.6
+line_adj = 1.2
 m_y = m_x * line_adj
 
-separator = '&'
+separator = ', '
+space = ' '
+up = True
 
 
 # reads the artists file and creates a wall of text
@@ -37,7 +41,6 @@ for a in artists[1:]:
 #more density!
 for i in range(2):
     random.shuffle(artists)
-    s+= separator
     for a in artists:
         s += separator + a
 
@@ -102,7 +105,7 @@ for y in range(len(img_array)):
         
         args[axis] = n_v
         
-        if v > 0.5:
+        if v < 0.5:
             txt.font(f[0])
         else:
             txt.font(f[1])
@@ -112,9 +115,12 @@ for y in range(len(img_array)):
         c = s[x + y*w]    
 
         if c == ' ':
-            txt.append('·')
+            txt.append(space)
         else:
-            txt.append(c.upper())
+            if up:
+                txt.append(c.upper())
+            else:
+                txt.append(c)
         n_y = h - y # this is because drawbot starts from the bottom
         text(txt, (x * m_x, n_y * m_y))
         
