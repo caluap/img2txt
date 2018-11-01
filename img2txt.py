@@ -16,8 +16,10 @@ font_file = 'SourceCodeVariable-Italic.ttf'
 font_file_2 = 'SourceCodeVariable-Roman.ttf'
 font_size = 4.4
 
-m_x = 3.6
-line_adj = 1.2
+use_alpha = True
+
+m_x = 3.8  # this separates letters on the x axis
+line_adj = 1.2 # this separates lines (beyond what m_x already does)
 m_y = m_x * line_adj
 
 separator = ', '
@@ -105,6 +107,7 @@ for y in range(len(img_array)):
         
         args[axis] = n_v
         
+        
         if v < 0.5:
             txt.font(f[0])
         else:
@@ -112,15 +115,18 @@ for y in range(len(img_array)):
             
         txt.fontSize(font_size)
         txt.fontVariations(**args)
-        c = s[x + y*w]    
+        c = s[x + y*w]
 
         if c == ' ':
             txt.append(space)
         else:
             if up:
-                txt.append(c.upper())
+                c = c.upper()
+            if use_alpha:
+                alpha = 0.5 + 0.5*v
             else:
-                txt.append(c)
+                alpha = 1
+            txt.append(c, fill=(0,0,0,alpha))
         n_y = h - y # this is because drawbot starts from the bottom
         text(txt, (x * m_x, n_y * m_y))
         
