@@ -19,6 +19,9 @@ font_size = 4.4
 cmyk = 0.18, 1, 0.16, 0.0
 rgb = 203/255.0, 7/255.0, 114/255.0
 
+min_a = 0.3
+max_a = 1.0
+
 use_alpha = False
 use_cmyk = True
 
@@ -104,6 +107,12 @@ for y in range(len(img_array)):
         
         # finds gray value and axis equivalent
         v = 1 - img_array[y][x][0] / 255.0
+        
+        # normalizes between range defined in max_a and min_a
+        delta_a = max_a - min_a
+        v = v*delta_a + min_a
+
+        
         max_axis = axes_list[axis]['max']
         min_axis = axes_list[axis]['min']
         delta = max_axis - min_axis
