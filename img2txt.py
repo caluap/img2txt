@@ -132,19 +132,19 @@ for y in range(len(img_array)):
         c = s[x + y*w]
 
         if c == ' ':
-            txt.append(space)
+            c = space
         else:
             if up:
                 c = c.upper()
-
-            n_c = cmyk                
-            if use_alpha:
-                alpha = 0.5 + 0.5*v
-            else:
-                alpha = 1.0
-
-            cmyk_fill = (n_c[0], n_c[1], n_c[2], n_c[3], alpha)
-            txt.append(c, cmykFill=cmyk_fill)
+                
+        if use_alpha:
+            alpha = 0.5 + 0.5*v
+        else:
+            alpha = 1.0
+            
+        n_c = cmyk
+        cmyk_fill = (n_c[0], n_c[1], n_c[2], n_c[3], alpha)
+        txt.append(c, cmykFill=cmyk_fill)
         n_y = h - y # this is because drawbot starts from the bottom
         text(txt, (x * m_x, n_y * m_y))
         
