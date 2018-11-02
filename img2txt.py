@@ -9,29 +9,30 @@ import time
 start = time.time()
 
 artists_json = 'artists.json'
-image_file = 'inputs/burle.5.png'
+image_file = 'inputs/burle.6.png'
 
 font_file = 'LeagueMonoVariable.ttf'
 font_file = 'SourceCodeVariable-Italic.ttf'
 font_file_2 = 'SourceCodeVariable-Roman.ttf'
-font_size = 4.4
+#font_file = font_file_2
 
 onhb_pink = 0.18, 1, 0.16, 0.0
 white = 0.0, 0.0, 0.0, 0.0
 rgb = 203/255.0, 7/255.0, 114/255.0
 
-min_a = 0.0
+min_a = 0.15
 max_a = 1.0
 
 use_alpha = False
-cmyk = white
+cmyk = onhb_pink
 
-m_x = 4.2  # this separates letters on the x axis
-line_adj = 1.2 # this separates lines (beyond what m_x already does)
+font_size = 4.6
+m_x = 3.92/1.2  # this separates letters on the x axis
+line_adj = 1.12*1.2 # this separates lines (beyond what m_x already does)
 m_y = m_x * line_adj
 
-separator = ' '
-space = ' '
+separator = '·'
+space = '·'
 up = True
 
 
