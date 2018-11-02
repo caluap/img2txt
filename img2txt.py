@@ -16,14 +16,15 @@ font_file = 'SourceCodeVariable-Italic.ttf'
 font_file_2 = 'SourceCodeVariable-Roman.ttf'
 font_size = 4.4
 
-cmyk = 0.18, 1, 0.16, 0.0
+onhb_pink = 0.18, 1, 0.16, 0.0
+white = 0.0, 0.0, 0.0, 0.0
 rgb = 203/255.0, 7/255.0, 114/255.0
 
-min_a = 0.3
+min_a = 0.0
 max_a = 1.0
 
 use_alpha = False
-use_cmyk = True
+cmyk = white
 
 m_x = 4.2  # this separates letters on the x axis
 line_adj = 1.2 # this separates lines (beyond what m_x already does)
@@ -136,11 +137,7 @@ for y in range(len(img_array)):
             if up:
                 c = c.upper()
 
-            if use_cmyk:
-                n_c = cmyk
-            else:
-                n_c = (0,0,0,1.0)
-                
+            n_c = cmyk                
             if use_alpha:
                 alpha = 0.5 + 0.5*v
             else:
