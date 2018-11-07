@@ -11,9 +11,15 @@ start = time.time()
 artists_json = 'artists.json'
 image_file = 'inputs/burle.6.png'
 
-font_file = 'LeagueMonoVariable.ttf'
-font_file = 'SourceCodeVariable-Italic.ttf'
-font_file_2 = 'SourceCodeVariable-Roman.ttf'
+font_file = ['LeagueMonoVariable.ttf']
+font_file = ['SourceCodeVariable-Italic.ttf',
+    'SourceCodeVariable-Roman.ttf']
+font_file = [
+    'OperatorMono-XLightItalic.otf',
+    'OperatorMono-LightItalic.otf',
+    'OperatorMono-BookItalic.otf',
+    'OperatorMono-MediumItalic.otf',
+    'OperatorMono-BoldItalic.otf']
 #font_file = font_file_2
 
 onhb_pink = 0.18, 1, 0.16, 0.0
@@ -75,8 +81,8 @@ img_array = numpy.array(img)
 size('A4')
 
 installed_font = []
-installed_font.append(installFont('fonts/'+font_file))
-installed_font.append(installFont('fonts/'+font_file_2))
+for ff in font_file:
+    installed_font.append(installFont('fonts/'+ff))
 f = []
 for ins_f in installed_font:
     f.append(font(ins_f))
@@ -110,28 +116,27 @@ for y in range(len(img_array)):
         # finds gray value and axis equivalent
         v = 1 - img_array[y][x][0] / 255.0
         
-        # normalizes between range defined in max_a and min_a
-        delta_a = max_a - min_a
-        v = v*delta_a + min_a
-
+        # chooses a font from the list
+        i_font = int(v * (len(f)-1))
+        txt.font(f[i_font])
         
-        max_axis = axes_list[axis]['max']
-        min_axis = axes_list[axis]['min']
-        delta = max_axis - min_axis
-        n_v = int(v * delta + min_axis)
+        # this is a var font
+        if axes_list:        
+            # normalizes between range defined in max_a and min_a
+            delta_a = max_a - min_a
+            v = v*delta_a + min_a
         
-        args[axis] = n_v
+            max_axis = axes_list[axis]['max']
+            min_axis = axes_list[axis]['min']
+            delta = max_axis - min_axis
+            n_v = int(v * delta + min_axis)
         
-        
-        if v < 0.5:
-            txt.font(f[0])
-        else:
-            txt.font(f[1])
+            args[axis] = n_v 
+            txt.fontVariations(**args)
             
         txt.fontSize(font_size)
-        txt.fontVariations(**args)
         c = s[x + y*w]
-
+        
         if c == ' ':
             c = space
         else:
@@ -151,7 +156,8 @@ for y in range(len(img_array)):
         
       
 #textBox(txt, (0, 297))
-uninstallFont(font_file)
+for ff in font_file:
+    uninstallFont(ff)
 
 
 print(int(time.time()-start))
