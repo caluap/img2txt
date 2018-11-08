@@ -9,7 +9,7 @@ import time
 start = time.time()
 
 artists_json = 'artists.json'
-image_file = 'inputs/burle.6.png'
+image_file = 'inputs/pat.11.png'
 
 font_file = ['LeagueMonoVariable.ttf']
 font_file = ['SourceCodeVariable-Italic.ttf',
@@ -18,8 +18,11 @@ font_file = [
     'OperatorMono-XLightItalic.otf',
     'OperatorMono-LightItalic.otf',
     'OperatorMono-BookItalic.otf',
-    'OperatorMono-MediumItalic.otf',
-    'OperatorMono-BoldItalic.otf']
+    'OperatorMono-Medium.otf',
+    'OperatorMono-Bold.otf']
+font_file = ['SourceCodeVariable-Italic.ttf',
+    'SourceCodeVariable-Roman.ttf']
+font_file = ['SourceCodeVariable-Roman.ttf']    
 #font_file = font_file_2
 
 onhb_pink = 0.18, 1, 0.16, 0.0
@@ -30,7 +33,7 @@ min_a = 0.15
 max_a = 1.0
 
 use_alpha = False
-cmyk = onhb_pink
+cmyk = white
 
 font_size = 4.6
 m_x = 3.92/1.2  # this separates letters on the x axis
