@@ -5,6 +5,7 @@ import random
 import math
 from pprint import pprint
 import time
+import sys
 
 start = time.time()
 
@@ -33,11 +34,11 @@ min_a = 0.15
 max_a = 1.0
 
 use_alpha = False
-cmyk = white
+cmyk = onhb_pink
 
-font_size = 4.6
-m_x = 3.92/1.2  # this separates letters on the x axis
-line_adj = 1.12*1.2 # this separates lines (beyond what m_x already does)
+font_size = 4.0/1.2
+m_x = 3.92/1.2*1.2/1.1/1.2  # this separates letters on the x axis
+line_adj = 1.12*1.2/1.1/1.2 # this separates lines (beyond what m_x already does)
 m_y = m_x * line_adj
 
 separator = '·'
@@ -63,7 +64,6 @@ for i in range(2):
     random.shuffle(artists)
     for a in artists:
         s += separator + a
-
 
 
 # as each char = 1 pixel, what size image do we need?
